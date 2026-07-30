@@ -37,7 +37,7 @@ body{
     background-size: cover;
     display:flex;
 }
-#menu{
+#taskbar{
     width: 70px;
     height: 55px;
     background: blue;
@@ -53,12 +53,12 @@ body{
     z-index:99999;
     backdrop-filter:blur(0.125rem);
 }
-#menu:hover {
+#taskbar:hover {
     img {
         scale: 1.125;
     }
 }
-#menu img{
+#taskbar img{
     width: 42px;
     height: 42px;
     object-fit: fill;
