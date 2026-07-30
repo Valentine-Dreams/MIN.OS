@@ -249,17 +249,13 @@ span{
 .man_typing.animated{
     animation: typing var(--duration) steps(var(--steps)) forwards;
 }
-.man_typing .heart{
+.man_typing .heart, .man_typing .wrong{
     font-family:"Big Shot";
     cursor: pointer;
 }
-.man_typing .heart:hover{
+.man_typing .heart:hover, .man_typing .wrong:hover{
     color:yellow;
 }
-.man_typing .wrong{
-    font-family:"Big Shot";
-    cursor: pointer;
-}    
 .heart_obj{
     margin-left:5px;
 }

@@ -47,8 +47,6 @@ function createWindowButtons() {
 
     button_mini.appendChild(mini_line);
 
-
-
     // maximize button
     const button_maximize = document.createElementNS(svgNS, "svg");
     button_maximize.setAttribute("viewBox", "0 0 24 24");
@@ -200,7 +198,7 @@ function resizeWindow(window) {
 
     
 
-function createWindow(titleText, windowClass, bodyClass, useOverlay = false, allowSpecial = true, musicFile = null, icon = "https://picsum.photos/22") {
+function createWindow(titleText, windowClass, bodyClass, useOverlay = false, allowSpecial = true, musicFile = null, icon = "https://picsum.photos/22", showMini = true, showResize = true, showClose = true) {
 
         const special = Math.random() < 0.02;
         // 
@@ -275,6 +273,16 @@ function createWindow(titleText, windowClass, bodyClass, useOverlay = false, all
     );
 
     const buttons = createWindowButtons();
+
+    if (!showClose) {
+        buttons.close.remove()
+    }
+    if (!showResize) {
+        buttons.maximize.remove()
+    }
+    if (!showMini) {
+        buttons.mini.remove()
+    }
 
     top_bar.appendChild(data_container);
     top_bar.appendChild(buttons.area);
@@ -361,23 +369,26 @@ function createWindow(titleText, windowClass, bodyClass, useOverlay = false, all
 
     window_container.maximized = false;
 
+    if (showClose) {
+        buttons.close.addEventListener("click", () => {
+            closeWindow(window_container);
+            if (overlay) {
+                overlay.remove()    
+            }
+        });
+    }
 
-    buttons.close.addEventListener("click", () => {
-        closeWindow(window_container);
-        if (overlay) {
-            overlay.remove()    
-        }
-    });
+    if (showMini) {
+        buttons.mini.addEventListener("click", () => {
+            minimizeWindow(window_container);
+        });
+    }
 
-
-    buttons.mini.addEventListener("click", () => {
-        minimizeWindow(window_container);
-    });
-
-
-    buttons.maximize.addEventListener("click", () => {
-        resizeWindow(window_container);
-    });
+    if (showResize) {
+        buttons.maximize.addEventListener("click", () => {
+            resizeWindow(window_container);
+        });
+    }
 
 
     bar_icon.addEventListener("click", () => {
@@ -445,7 +456,7 @@ const b = createWindow(
 
 function createShutdownWindow() {
 
-    if (localStorage.getItem("eggClaimed") === "true") {
+    if (localStorage.getItem("manMet") === "true") {
         return;
     }
 
@@ -469,7 +480,10 @@ function createShutdownWindow() {
         true,
         false,
         "assets/man/Man_music.ogg",
-        "assets/man/SOUL.png"
+        "assets/man/SOUL.png",
+        false,
+        false,
+        false,
     );
     
 
@@ -553,37 +567,57 @@ function createShutdownWindow() {
             man_text.innerHTML = "<span class='heart'>Yes</span> <span class='wrong'>No</span>"
             updateTypingAnimation()
             stopTypingSound(man_text.textContent)
-            const span = man_text.querySelector(".heart")
+            const heart = man_text.querySelector(".heart")
             const wrong = man_text.querySelector(".wrong")
-            var heart = document.createElement("img")
+            var heart_obj = document.createElement("img")
             heart.classList.add("heart_obj")
-            heart.src = "assets/man/SOUL.png"
+            heart_obj.src = "assets/man/SOUL.png"
             man_text.addEventListener("animationend", stopTypingSound)
             man_text.classList.remove("animated")
             void man_text.offsetWidth;
-            span.addEventListener("mouseenter", () => {
-                span.appendChild(heart)
+            heart.addEventListener("mouseenter", () => {
+                heart.appendChild(heart_obj)
             })
-            span.addEventListener("mouseleave", () => {
-                heart.remove();
+            heart.addEventListener("mouseleave", () => {
+                heart_obj.remove();
             })
             wrong.addEventListener("mouseenter", () => {
-                wrong.remove()
+                wrong.appendChild(heart_obj)
             }) 
-            span.addEventListener("click", () => {
-                startTypingSound(man_text.textContent)
-                man_text.classList.add("animated")
+            wrong.addEventListener("mouseleave", () => {
+                heart_obj.remove();
+            })
+            heart.addEventListener("click", () => {
+                startTypingSound(man_text.textContent);
+                man_text.classList.add("animated");
                 lines_read++;
                 
-                const accept = new Audio("assets/man/egg-gained.ogg")
+                const accept = new Audio("assets/man/egg-gained.ogg");
 
-                accept.play()
+                accept.play();
 
-                man_text.innerHTML = man_lines[lines_read]
-                updateTypingAnimation()
+                man_text.innerHTML = man_lines[lines_read];
+                updateTypingAnimation();
 
-                localStorage.setItem("eggClaimed", "true")
+                localStorage.setItem("manMet", "true");
+                console.log(localStorage.getItem("manMet"));
+                localStorage.setItem("eggClaimed", "true");
                 console.log(localStorage.getItem("eggClaimed"));
+                canCreate = true;
+            })
+            wrong.addEventListener("click", () => {
+                startTypingSound(man_text.textContent);
+                man_text.classList.add("animated");
+                lines_read = 3;
+
+                man_text.innerHTML = man_lines[lines_read];
+                updateTypingAnimation();
+
+                localStorage.setItem("manMet", "true");
+                console.log(localStorage.getItem("manMet"));
+                localStorage.setItem("eggClaimed", "false");
+                console.log(localStorage.getItem("eggClaimed"));
+
                 canCreate = true;
             })
             return;
