@@ -1,6 +1,6 @@
 const container = document.querySelector("#container");
 const menu = document.querySelector("#bar");
-const creator = document.querySelector("#taskbar")
+const creator = document.querySelector("#menu")
 const body = document.querySelector("body");
 let activeWindow = null;
 let zIndex = 1;
