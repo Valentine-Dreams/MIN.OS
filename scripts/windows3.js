@@ -200,8 +200,8 @@ function resizeWindow(window) {
 
 function createWindow(titleText, windowClass, bodyClass, useOverlay = false, allowSpecial = true, musicFile = null, icon = "https://picsum.photos/22", showMini = true, showResize = true, showClose = true) {
 
-        const special = true;
-        // Math.random() < 0.02
+        const special = Math.random() < 0.02;
+        
 
     if (allowSpecial && special) {
         createShutdownWindow();
