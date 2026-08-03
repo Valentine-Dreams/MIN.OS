@@ -198,7 +198,7 @@ function resizeWindow(window) {
 
     
 
-function createWindow(titleText, windowClass, bodyClass, useOverlay = false, allowSpecial = true, musicFile = null, icon = "https://picsum.photos/22", showMini = true, showResize = true, showClose = true) {
+function createWindow(titleText, windowClass, bodyClass, useOverlay = false, allowSpecial = true, musicFile = null, icon = "https://picsum.photos/22", showMini = true, showResize = true, showClose = true, linkingEnabled = true) {
 
         const special = Math.random() < 0.02;
         
@@ -313,8 +313,12 @@ function createWindow(titleText, windowClass, bodyClass, useOverlay = false, all
 
 
     // link them together
-    window_container.barIcon = bar_icon;
+    if (!linkingEnabled) {
+        bar_icon.remove()
+    };
+    
     bar_icon.windowContainer = window_container;
+    window_container.barIcon = bar_icon;
 
 
 
@@ -372,6 +376,7 @@ function createWindow(titleText, windowClass, bodyClass, useOverlay = false, all
     if (showClose) {
         buttons.close.addEventListener("click", () => {
             closeWindow(window_container);
+            canCreate = true
             if (overlay) {
                 overlay.remove()    
             }
@@ -411,12 +416,69 @@ creator.onclick = () => {
     if (!canCreate) return;
     
     
-    createWindow(
-        "Default",
-        "window",
-        "window_body"
+    const b = createWindow(
+        "",
+        "window_apps",
+        "window_body_apps",
+        true,
+        true,
+        null,
+        "",
+        false,
+        false,
+        true,
+        false,
+
+        canCreate = false
     );
 
+    var window_apps = document.querySelector(".window_apps")
+    var overlay = document.querySelector(".overlay")
+
+    var app_title = document.createElement("h1")
+    app_title.classList.add("app_title")
+    app_title.textContent = "Apps"
+    b.body.appendChild(app_title)
+
+    var app_cont = document.createElement("section")
+    app_cont.classList.add("app_cont")
+    b.body.appendChild(app_cont)
+    
+    var app_win = document.createElement("section")
+    app_win.classList.add("app_win")
+    app_cont.appendChild(app_win)
+
+    var app1 = document.createElement("img")
+    app1.classList.add("app")
+    app1.src = "https://picsum.photos/50"
+    app_win.appendChild(app1)
+
+    var app1t = document.createElement("p")
+    app1t.classList.add("appt")
+    app1t.textContent = "Default"
+    app_win.appendChild(app1t)
+
+    var app_div = document.createElement("hr")
+    app_div.classList.add("app_div")
+    b.body.appendChild(app_div)
+
+    app_win.addEventListener("click", () => {
+        createWindow(
+            `${app1t.textContent}`,
+            "window",
+            "window_body",
+            false,
+            true,
+            null,
+            "https://picsum.photos/22",
+            true,
+            true,
+            true,
+            true,
+        )
+        window_apps.remove()
+        overlay.remove()
+    }) 
 };
 
 if (localStorage.getItem("eggClaimed") === "true") {
@@ -440,18 +502,39 @@ if (localStorage.getItem("eggClaimed") === "true") {
 
 // };
 
-const a = createWindow(
-    "Window A",
-    "window",
-    "window_body"
-);
+// const a = createWindow(
+//     "Window A",
+//     "window",
+//     "window_body",
+//     true,
+//     true,
+//     null,
+//     "https://picsum.photos/22",
+//     true,
+//     false,
+//     true,
+//     true,
 
-const b = createWindow(
-    "Window B",
-    "window",
-    "window_body",
-    true
-);
+//     canCreate = true
+// );
+
+// const b = createWindow(
+//     "",
+//     "window_apps",
+//     "window_body_apps",
+//     true,
+//     true,
+//     null,
+//     "",
+//     false,
+//     false,
+//     true,
+//     false,
+
+//     canCreate = false
+// );
+
+    
 
 
 function createShutdownWindow() {
@@ -481,6 +564,7 @@ function createShutdownWindow() {
         false,
         "assets/man/Man_music.ogg",
         "assets/man/SOUL.png",
+        false,
         false,
         false,
         false,

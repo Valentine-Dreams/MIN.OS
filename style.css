@@ -209,8 +209,12 @@ svg, path, line{
     align-items:center;
 }
 .window_body_apps{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
     height: 100%;
     background: indigo;
+    align-content:center;
 }
 .overlay{
     background: rgba(0,0,0,0.5);
@@ -264,6 +268,52 @@ span{
     width:10%;
     margin-left:5px;
 }
+.app_title{
+    height: 7%;
+    width: 100%;
+    font-size: 250%;
+    color:white;
+    margin:40px 0 40px 0;
+    display:flex;
+    justify-content:center;
+}
+.app_cont{
+    width: 100%;
+    height: 30%;
+    display:flex;
+    place-self:center;
+    justify-content: center;
+}
+.app_div{
+    margin: 12px 0 12px 0;
+    border: 1px solid rgb(181, 0, 172);
+}
+.app_win{
+    width: 15%;
+    height: 50%;
+    display:flex;
+    flex-direction: column;
+    place-content: center;
+    cursor: pointer;
+}
+.app{
+    width: 64px;
+    height: 64px;
+    transition: scale 0.1s;
+    place-self: center;
+}
+.appt{
+    display:flex;
+    justify-content:center;
+    width: 64px;
+    margin: 12px 0;
+    place-self: center;
+}
+.app:hover{
+    scale: 110%;
+}
+
+
 
 @keyframes typing {
     from {
