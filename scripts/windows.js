@@ -5,6 +5,7 @@ const body = document.querySelector("body");
 let activeWindow = null;
 let zIndex = 1;
 
+
 function focusWindow(window) {
 
     if (activeWindow) {
