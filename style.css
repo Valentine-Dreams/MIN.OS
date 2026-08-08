@@ -312,7 +312,116 @@ span{
 .app:hover{
     scale: 110%;
 }
-
+.regWindow{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(137, 43, 226, 0.8);
+    z-index:999999;
+    display:flex;
+    justify-content: center;
+    position: absolute;
+}
+.registerText{
+    font-size:220%;
+    margin-bottom:20px;
+    place-self:center;
+    text-align:center;
+    text-shadow: 4px 4px 30px rgba(0,0,0,0.3)
+}
+.registerTextSmall{
+    place-self:center;
+    text-align:center;
+    font-size:15px;
+    color:rgb(187, 187, 187)
+}
+.warningText{
+    text-align:start;
+    padding: 5px;
+    padding-left:30px;
+    padding-right:30px;
+    border-radius:10px;
+    margin-top:10px;
+    font-size:smaller;
+    background:rgba(255, 255, 255, 0.2);
+    color:red;
+    display:none;
+}
+.userContainer{
+    width: 40%;
+    position: absolute;
+    height: 30px;
+    font-size: 150%;
+    display:flex;
+    place-self:center;
+    justify-content: center;
+}
+.regCont{
+    display:flex;
+    flex-direction:column;
+    width: 25%;
+    height: 600px;
+    place-self:center;
+    justify-content: center;
+    align-content:center;
+    background-color: rgba(137, 43, 226, 0.35);
+    backdrop-filter: blur(4px);
+    border-radius:20px;
+    box-shadow: 0 0 30px 0 rgba(0,0,0,0.3)
+}
+.field{
+    width: 60%;
+    height: 45px;
+    font-size: 90%;
+    display:flex;
+    place-self:center;
+    background-color:rgba(255,255,255, 0.1);
+    border:1px solid rgba(255,255,255, 0.2);
+    border-radius:10px;
+    align-items: flex-end;
+    padding-top:20px;
+    padding-left:10px;
+    color:white;
+    transition:0.2s;
+    backdrop-filter:blur(10px)
+}
+.field:focus{
+    outline:none;
+}
+.field.selected{
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2)
+}
+.submit{
+    margin-top: 10px;
+    place-self:center;
+    width: 60%;
+    height: 50px;
+    font-size:110%;
+    border-radius:10px;
+    align-content:center;
+    border:none;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color:white;
+    background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+    overflow:hidden;
+    position: relative;
+    cursor:pointer;
+}
+.submit:hover{
+    transform: translateY(-2px);
+}
+.submit::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition:left 0.5s ease;
+}
+.submit:hover::before{
+    left:100% 
+}
 
 
 @keyframes typing {
