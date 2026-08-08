@@ -6,7 +6,7 @@ if (localStorage.getItem("registered") === null) {
 window.onload = registerWindow
 function registerWindow() {
     if (localStorage.getItem("registered") === "false") {
-        console.log("something happened");
+        // console.log("something happened");
         
         var regWindow = document.createElement("section")
         regWindow.classList.add("regWindow")
@@ -47,15 +47,15 @@ function registerWindow() {
         var warned = false
         regSubmit.addEventListener("click", () => {
             var username = document.querySelector(".field").value
-            console.log(username);
+            // console.log(username);
             
             if (username === "" && warned === false) {
-                console.log("ermmmmm");
+                // console.log("ermmmmm");
                 logInRem.style.display = "block";
                 warned = true;      
             }
             if (username != "") {
-                console.log("yay");
+                // console.log("yay");
                 logInRem.style.display = "none";
                 warned = false;                
                 localStorage.setItem("registered", "true")
